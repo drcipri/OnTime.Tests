@@ -20,7 +20,7 @@ namespace OnTime.Tests
         {
             //arrange
             var mockRepository = new Mock<IRepositoryAppointment>();
-            mockRepository.Setup(c => c.Appointments).Returns((new Appointment[]
+            mockRepository.Setup(c => c.FilterAppointments(ClassificationTypes.Awaiting)).Returns((new Appointment[]
             {
                 new Appointment
                 {
@@ -40,12 +40,12 @@ namespace OnTime.Tests
                     AdditionalInfo = "AF2",
                     Classification = new Classification { Id= 1, Name = "Awaiting"}
                 }
-            }).AsQueryable());
+            }).AsEnumerable());
 
             var controller = new HomeController(mockRepository.Object);
 
             //act
-            var result = (controller.Index() as ViewResult)?.ViewData.Model as AppointmetnsListViewModel ?? new();
+            var result = (controller.Index(1,ClassificationTypes.Awaiting) as ViewResult)?.ViewData.Model as AppointmetnsListViewModel ?? new();
 
             //assert
             Appointment[] appointments = result.Appointments.ToArray();
@@ -63,7 +63,7 @@ namespace OnTime.Tests
         {
             //arrange
             var mockRepository = new Mock<IRepositoryAppointment>();
-            mockRepository.Setup(c => c.Appointments).Returns((new Appointment[]
+            mockRepository.Setup(c => c.FilterAppointments(ClassificationTypes.Awaiting)).Returns((new Appointment[]
             {
                 new Appointment
                 {
@@ -110,13 +110,13 @@ namespace OnTime.Tests
                     AdditionalInfo = "AF4",
                     Classification = new Classification { Id= 1, Name = "Awaiting"}
                 }
-            }).AsQueryable());
+            }).AsEnumerable());
 
             var controller = new HomeController(mockRepository.Object);
             controller.PageSize = 2;
 
             //act
-            var result = (controller.Index(2) as ViewResult)?.ViewData.Model as AppointmetnsListViewModel ?? new();
+            var result = (controller.Index(2,ClassificationTypes.Awaiting) as ViewResult)?.ViewData.Model as AppointmetnsListViewModel ?? new();
 
             //assert
             var appointments = result.Appointments.ToArray();
@@ -134,7 +134,7 @@ namespace OnTime.Tests
         {
             //arrange
             var mockRepository = new Mock<IRepositoryAppointment>();
-            mockRepository.Setup(c => c.Appointments).Returns((new Appointment[]
+            mockRepository.Setup(c => c.FilterAppointments(ClassificationTypes.Awaiting)).Returns((new Appointment[]
             {
                 new Appointment
                 {
@@ -181,13 +181,13 @@ namespace OnTime.Tests
                     AdditionalInfo = "AF4",
                     Classification = new Classification { Id= 1, Name = "Awaiting"}
                 }
-            }).AsQueryable());
+            }).AsEnumerable());
 
             var controller = new HomeController(mockRepository.Object);
             controller.PageSize = 2;
 
             //act
-            var result = (controller.Index(2) as ViewResult)?.ViewData.Model as AppointmetnsListViewModel ?? new();
+            var result = (controller.Index(2,ClassificationTypes.Awaiting) as ViewResult)?.ViewData.Model as AppointmetnsListViewModel ?? new();
 
             //assert
             var pagingInfo = result.PaginationInfo;
@@ -198,6 +198,53 @@ namespace OnTime.Tests
                 Assert.That(pagingInfo.TotalItems, Is.EqualTo(5));
                 Assert.That(pagingInfo.TotalPages, Is.EqualTo(3));
             });
+        }
+        [Test]
+        public void Index_CanFilterByClassification_ReturnSuccesfullAppointments()
+        {
+            //arrange
+            var mockRepository = new Mock<IRepositoryAppointment>();
+            mockRepository.Setup(c => c.FilterAppointments(ClassificationTypes.Succesfull)).Returns((new Appointment[]
+            {
+                new Appointment
+                {
+                    Id = 1,
+                    DateTime = DateTime.Now,
+                    Objective = "O1",
+                    Reason = "R1",
+                    AdditionalInfo = "AF1",
+                    Classification = new Classification { Id = 1, Name = "Succesfull"}
+                },
+                new Appointment
+                {
+                    Id = 2,
+                    DateTime = DateTime.Now,
+                    Objective = "O2",
+                    Reason = "R2",
+                    AdditionalInfo = "AF2",
+                    Classification = new Classification { Id= 2, Name = "Succesfull"}
+                },
+                new Appointment
+                {
+                    Id = 3,
+                    DateTime = DateTime.Now,
+                    Objective = "O3",
+                    Reason = "R3",
+                    AdditionalInfo = "AF3",
+                    Classification = new Classification { Id = 2, Name = "Succesfull"}
+                },
+            }).AsEnumerable());
+
+            var controller = new HomeController(mockRepository.Object);
+            controller.PageSize = 2;
+
+            //act
+            var result = (controller.Index(1, ClassificationTypes.Succesfull) as ViewResult)?.ViewData.Model as AppointmetnsListViewModel ?? new();
+
+            //assert
+            //since i implemented a method for Filtering appointments i can only test that method with integration tests.
+            //i simply checked if the Classification is the same as the one passed through the Index.
+            Assert.That(result.Classification, Is.EqualTo("Succesfull"));
         }
     }
     
