@@ -45,7 +45,7 @@ namespace OnTime.Tests
             var controller = new HomeController(mockRepository.Object);
 
             //act
-            var result = (controller.Index(1,ClassificationTypes.Awaiting) as ViewResult)?.ViewData.Model as AppointmetnsListViewModel ?? new();
+            var result = (controller.Index(1,ClassificationTypes.Awaiting) as ViewResult)?.ViewData.Model as AppointmentsListViewModel ?? new();
 
             //assert
             Appointment[] appointments = result.Appointments.ToArray();
@@ -116,7 +116,7 @@ namespace OnTime.Tests
             controller.PageSize = 2;
 
             //act
-            var result = (controller.Index(2,ClassificationTypes.Awaiting) as ViewResult)?.ViewData.Model as AppointmetnsListViewModel ?? new();
+            var result = (controller.Index(2,ClassificationTypes.Awaiting) as ViewResult)?.ViewData.Model as AppointmentsListViewModel ?? new();
 
             //assert
             var appointments = result.Appointments.ToArray();
@@ -187,7 +187,7 @@ namespace OnTime.Tests
             controller.PageSize = 2;
 
             //act
-            var result = (controller.Index(2,ClassificationTypes.Awaiting) as ViewResult)?.ViewData.Model as AppointmetnsListViewModel ?? new();
+            var result = (controller.Index(2,ClassificationTypes.Awaiting) as ViewResult)?.ViewData.Model as AppointmentsListViewModel ?? new();
 
             //assert
             var pagingInfo = result.PaginationInfo;
@@ -239,7 +239,7 @@ namespace OnTime.Tests
             controller.PageSize = 2;
 
             //act
-            var result = (controller.Index(1, ClassificationTypes.Succesfull) as ViewResult)?.ViewData.Model as AppointmetnsListViewModel ?? new();
+            var result = (controller.Index(1, ClassificationTypes.Succesfull) as ViewResult)?.ViewData.Model as AppointmentsListViewModel ?? new();
 
             //assert
             //since i implemented a method for Filtering appointments i can only test that method with integration tests.
