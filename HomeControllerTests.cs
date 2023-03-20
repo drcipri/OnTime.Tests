@@ -16,7 +16,7 @@ namespace OnTime.Tests
     internal class HomeControllerTests
     {
         [Test]
-        public void Index_GetAppointemtnsFromDataBase_ViewContainDatabaseObjects()
+        public void Index_GetAppointemtnsFromDataBase_ViewContainDatabaseObjectsInDescendingOrder()
         {
             //arrange
             var mockRepository = new Mock<IRepositoryAppointment>();
@@ -25,7 +25,8 @@ namespace OnTime.Tests
                 new Appointment
                 {
                     Id = 1,
-                    DateTime = DateTime.Now,
+                    AppointmentDateTime = DateTime.Now,
+                    PostDateTime = new DateTime(2020,1,1),
                     Objective = "O1",
                     Reason = "R1",
                     AdditionalInfo = "AF1",
@@ -34,7 +35,8 @@ namespace OnTime.Tests
                 new Appointment
                 {
                     Id = 2,
-                    DateTime = DateTime.Now,
+                    AppointmentDateTime = DateTime.Now,
+                    PostDateTime = new DateTime(2020,2,1),
                     Objective = "O2",
                     Reason = "R2",
                     AdditionalInfo = "AF2",
@@ -52,10 +54,10 @@ namespace OnTime.Tests
             Assert.Multiple(() =>
             {
                 Assert.That(appointments, Has.Length.EqualTo(2));
-                Assert.That(appointments[0].Objective, Is.EqualTo("O1"));
-                Assert.That(appointments[0].Id, Is.EqualTo(1));
-                Assert.That(appointments[1].Objective, Is.EqualTo("O2"));
-                Assert.That(appointments[1].Id, Is.EqualTo(2));
+                Assert.That(appointments[0].Objective, Is.EqualTo("O2"));
+                Assert.That(appointments[0].Id, Is.EqualTo(2));
+                Assert.That(appointments[1].Objective, Is.EqualTo("O1"));
+                Assert.That(appointments[1].Id, Is.EqualTo(1));
             });
         }
         [Test]
@@ -68,7 +70,7 @@ namespace OnTime.Tests
                 new Appointment
                 {
                     Id = 1,
-                    DateTime = DateTime.Now,
+                    AppointmentDateTime = DateTime.Now,
                     Objective = "O1",
                     Reason = "R1",
                     AdditionalInfo = "AF1",
@@ -77,7 +79,7 @@ namespace OnTime.Tests
                 new Appointment
                 {
                     Id = 2,
-                    DateTime = DateTime.Now,
+                    AppointmentDateTime = DateTime.Now,
                     Objective = "O2",
                     Reason = "R2",
                     AdditionalInfo = "AF2",
@@ -86,7 +88,7 @@ namespace OnTime.Tests
                 new Appointment
                 {
                     Id = 3,
-                    DateTime = DateTime.Now,
+                    AppointmentDateTime = DateTime.Now,
                     Objective = "O3",
                     Reason = "R3",
                     AdditionalInfo = "AF3",
@@ -95,7 +97,7 @@ namespace OnTime.Tests
                 new Appointment
                 {
                     Id = 4,
-                    DateTime = DateTime.Now,
+                    AppointmentDateTime = DateTime.Now,
                     Objective = "O4",
                     Reason = "R4",
                     AdditionalInfo = "AF4",
@@ -104,7 +106,7 @@ namespace OnTime.Tests
                 new Appointment
                 {
                     Id = 5,
-                    DateTime = DateTime.Now,
+                    AppointmentDateTime = DateTime.Now,
                     Objective = "O4",
                     Reason = "R4",
                     AdditionalInfo = "AF4",
@@ -139,7 +141,7 @@ namespace OnTime.Tests
                 new Appointment
                 {
                     Id = 1,
-                    DateTime = DateTime.Now,
+                    AppointmentDateTime = DateTime.Now,
                     Objective = "O1",
                     Reason = "R1",
                     AdditionalInfo = "AF1",
@@ -148,7 +150,7 @@ namespace OnTime.Tests
                 new Appointment
                 {
                     Id = 2,
-                    DateTime = DateTime.Now,
+                    AppointmentDateTime = DateTime.Now,
                     Objective = "O2",
                     Reason = "R2",
                     AdditionalInfo = "AF2",
@@ -157,7 +159,7 @@ namespace OnTime.Tests
                 new Appointment
                 {
                     Id = 3,
-                    DateTime = DateTime.Now,
+                    AppointmentDateTime = DateTime.Now,
                     Objective = "O3",
                     Reason = "R3",
                     AdditionalInfo = "AF3",
@@ -166,7 +168,7 @@ namespace OnTime.Tests
                 new Appointment
                 {
                     Id = 4,
-                    DateTime = DateTime.Now,
+                    AppointmentDateTime = DateTime.Now,
                     Objective = "O4",
                     Reason = "R4",
                     AdditionalInfo = "AF4",
@@ -175,7 +177,7 @@ namespace OnTime.Tests
                 new Appointment
                 {
                     Id = 5,
-                    DateTime = DateTime.Now,
+                    AppointmentDateTime = DateTime.Now,
                     Objective = "O4",
                     Reason = "R4",
                     AdditionalInfo = "AF4",
@@ -209,7 +211,7 @@ namespace OnTime.Tests
                 new Appointment
                 {
                     Id = 1,
-                    DateTime = DateTime.Now,
+                    AppointmentDateTime = DateTime.Now,
                     Objective = "O1",
                     Reason = "R1",
                     AdditionalInfo = "AF1",
@@ -218,7 +220,7 @@ namespace OnTime.Tests
                 new Appointment
                 {
                     Id = 2,
-                    DateTime = DateTime.Now,
+                    AppointmentDateTime = DateTime.Now,
                     Objective = "O2",
                     Reason = "R2",
                     AdditionalInfo = "AF2",
@@ -227,7 +229,7 @@ namespace OnTime.Tests
                 new Appointment
                 {
                     Id = 3,
-                    DateTime = DateTime.Now,
+                    AppointmentDateTime = DateTime.Now,
                     Objective = "O3",
                     Reason = "R3",
                     AdditionalInfo = "AF3",
